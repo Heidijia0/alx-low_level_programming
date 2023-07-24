@@ -1,0 +1,48 @@
+#include <Python.h>
+
+int add(int a, int b) {
+    return a + b;
+}
+
+int sub(int a, int b) {
+    return a - b;
+}
+
+int mul(int a, int b) {
+    return a * b;
+}
+
+int div(int a, int b) {
+    return a / b;
+} 
+
+int mod(int a, int b) {
+    return a % b;
+}
+
+// This initializes the module 
+static struct PyModuleDef moduledef = {
+    PyModuleDef_HEAD_INIT,
+    "operations",
+    NULL,
+    -1,
+    NULL
+};
+
+PyMODINIT_FUNC 
+PyInit_operations(void) {
+    PyObject *m;
+
+    m = PyModule_Create(&moduledef);
+    if (!m) {
+        return NULL;
+    }
+
+    PyModule_AddIntConstant(m, "ADD", &add);
+    PyModule_AddIntConstant(m, "SUB", &sub);
+    PyModule_AddIntConstant(m, "MUL", &mul);
+    PyModule_AddIntConstant(m, "DIV", &div);
+    PyModule_AddIntConstant(m, "MOD", &mod);
+
+    return m;
+}
